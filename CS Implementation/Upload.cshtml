@@ -3,6 +3,9 @@
     Page.Title = "Upload";
 }
 
+<input type="file" id="uploadme" />
+<input type="button" id="clickme" value="Upload Stuff!" />
+
 <hgroup class="title">
     <h1>@Page.Title.</h1>
     <h2> - Upload Your Files Here</h2>
@@ -17,3 +20,14 @@
         UPLOAD BUTTON HERE
     </p>
 </article>
+
+input[type=file] {
+    width: 1px;
+    visibility: hidden;
+}
+
+$(function() {
+    $('#clickme').click(function(){
+        $('#uploadme').click();
+    });
+});
