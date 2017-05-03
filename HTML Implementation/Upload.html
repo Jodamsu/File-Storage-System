@@ -1,4 +1,5 @@
 ﻿<!DOCTYPE html>
+
 <html>
 <title>My File Upload</title>
 <meta charset="UTF-8">
@@ -77,17 +78,32 @@
         </header>
 		
 		<body>
-			<div style="background-color:blue; padding: 5px 10px">
-			<p>
-			Please specify a file, or a set of files:<br>
-			<input type="file" name="datafile" size="40">
-			</p>
-			
-			<div><input type="submit" value="Upload"></div>
-			</div>
-
 		
+<!--
+    <script type="text/javascript">
+     $(document).ready(function(){
+            $('#uploadform').change(function(){
+                 $.ajax({
+                       type: "GET",
+                       url: "upload.php",
+                       data: "query="+document.form.textarea.value,
+                       success: function(msg){
+                        document.getElementById("phpresult2").innerHTML = msg                         }
+                     })
+            });
+        });
+    </script>
+	-->
+		<div style="background-color:blue; padding: 5px 10px">
 		
+		<form action="upload.php" method="POST" enctype="multipart/form-data">
+			<p>Please specify a file, or a set of files:<br>
+			<input type="file" name="datafile" size="40" multiple>
+			</p>			
+			<input type="submit" value="Upload"></div>
+		</form>
+	
+		</div>
 		</body>
 
         <!-- UPLOAD JAVASCRIPT GOES HERE -->
