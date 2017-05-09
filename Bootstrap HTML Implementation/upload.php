@@ -13,5 +13,4 @@ if(!empty($_FILES['file']['name'][0])) {
 }
 
 echo json_encode($uploaded);
-
 ?>
