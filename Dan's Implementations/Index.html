@@ -7,8 +7,9 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-</head>
-<body>
+    <script src="https://apis.google.com/js/client:platform.js?onload=renderButton" async defer></script>
+    <title>Login with Google</title>
+    <meta name="google-signin-client_id" content="590338520933-oohdfsnh0d9o8e9i5m4i4s9v1thoclq5.apps.googleusercontent.com">
 
 <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -29,7 +30,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li class="active">
-		    <li> <a href="bootstraplogin.html">Login</a> </li>
+		    <li> <a href="index.html">Login</a> </li>
 		    <li> <a href="myfiles.html">My Files</a></li>
                     <li> <a href="upload.html">Upload</a> </li>
 		    <li> <a href="bootstraplogout.html">Logout</a> </li>
@@ -38,10 +39,48 @@
             </div>
         </div>
     </nav>
-    
-    <!-- Page Content -->
-    <div class="container">
-    </div>
-
-</body>
+<script>    
+   function onSuccess(googleUser) {
+    var profile = googleUser.getBasicProfile();
+    gapi.client.load('plus', 'v1', function () {
+        var request = gapi.client.plus.people.get({
+            'userId': 'me'
+        });
+        //Display the user details
+        request.execute(function (resp) {
+            var profileHTML = '<div class="profile"><div class="head">Welcome '+resp.name.givenName+'! <a href="javascript:void(0);" onclick="signOut();">Sign out</a></div>';
+            profileHTML += '<img src="'+resp.image.url+'"/><div class="proDetails"><p>'+resp.displayName+'</p><p>'+resp.emails[0].value+'</p><p>'+resp.gender+'</p><p>'+resp.id+'</p><p><a href="'+resp.url+'">View Google+ Profile</a></p></div></div>';
+            $('.userContent').html(profileHTML);
+            $('#gSignIn').slideUp('slow');
+        });
+    });
+}
+function onFailure(error) {
+    alert(error);
+}
+function renderButton() {
+    gapi.signin2.render('gSignIn', {
+        'scope': 'profile email',
+        'width': 240,
+        'height': 50,
+        'longtitle': true,
+        'theme': 'dark',
+        'onsuccess': onSuccess,
+        'onfailure': onFailure
+    });
+}
+function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+        $('.userContent').html('');
+        $('#gSignIn').slideDown('slow');
+    });
+}
+</script>
+	
+<!-- HTML for render Google Sign-In button -->
+<div id="gSignIn"></div>
+<!-- HTML for displaying user details -->
+<div class="userContent"></div>
+</head>
 </html>
