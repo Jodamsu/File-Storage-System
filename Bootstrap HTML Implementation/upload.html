@@ -22,6 +22,7 @@
         padding-top: 70px;
     }
     
+    /* Drag and Drop Style */
     .dropzone {
     margin: auto;
     height: 300px;
@@ -37,6 +38,11 @@
     .dropzone.dragover {
         border-color: #000;
         color: #000;
+    }
+        
+    .dropzone.hover {
+        border-color: #e6e6e6;
+        color: #e6e6e6;
     }
     </style>
 
@@ -56,7 +62,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="myfiles.html">My File Upload</a>
+                <a class="navbar-brand" href="myfiles.html">My File Host</a>
             </div>
             
             <!-- Links to Other Pages -->
@@ -69,8 +75,13 @@
             </div>
         </div>
     </nav>
-
-    <!-- Page Content -->
+    
+    <!-- Page Contents -->
+    <div class="container">
+        <h2>Upload Files</h2>   
+    </div>
+    
+    <!-- Uplaod Block -->
     <div id="uploads"></div>
     <div class="dropzone" id="dropzone">Drop Files Here To Upload</div>
     
@@ -125,12 +136,25 @@
                 this.className = "dropzone dragover";
                 return false;
             }
+            
 
             dropzone.ondragleave = function() {
             this.className = "dropzone";       
             return false;   
             }
-        }());     
+            
+            dropzone.hover = function() {
+                this.className = "dropzone hover"
+                return = false
+            }
+            
+            dropzone.onclick = function() {
+                e.preventDefault();
+                this.className = "dropzone";
+                upload(e.dataTransfer.files);
+            }
+        }());
+        
     </script>
     
     <!-- JavaScripts Imports -->
