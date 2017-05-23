@@ -1,16 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <title>Login with Google</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <script src="https://apis.google.com/js/client:platform.js?onload=renderButton" async defer></script>
-    <meta name="google-signin-client_id" content="590338520933-oohdfsnh0d9o8e9i5m4i4s9v1thoclq5.apps.googleusercontent.com">
+  <meta name="google-signin-client_id" content="590338520933-oohdfsnh0d9o8e9i5m4i4s9v1thoclq5.apps.googleusercontent.com">
+<!-- Page Title -->
+    <title> Login with Google </title>
 
-<!-- Navigation -->
+    <!-- StyleSheet Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <style>
+    body {
+        padding-top: 70px;
+    }
+    </style>
+</head>
+<body>
+ <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
             
@@ -22,43 +27,39 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="myfiles.html">My File Upload</a>
+                <a class="navbar-brand" href="index.html">My File Upload</a>
             </div>
             
             <!-- Links to Other Pages -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active">
-		    <li> <a href="index.html">Login</a> </li>
-		    <li> <a href="myfiles.html">My Files</a></li>
+                    <li  <a href="myfiles.html">My Files</a></li>
                     <li> <a href="upload.html">Upload</a> </li>
-		    <li> <a href="bootstraplogout.html">Logout</a> </li>
                     <li> <a href="about.html">About Us</a> </li>
+                    <li> <a href="signout.html">Sign out</a></li>
                 </ul>
             </div>
         </div>
     </nav>
-<script>    
-   function onSuccess(googleUser) {
-    var profile = googleUser.getBasicProfile();
-    gapi.client.load('plus', 'v1', function () {
-        var request = gapi.client.plus.people.get({
-            'userId': 'me'
-        });
-        //Display the user details
-        request.execute(function (resp) {
-            var profileHTML = '<div class="profile"><div class="head">Welcome '+resp.name.givenName+'! <a href="javascript:void(0);" onclick="signOut();">Sign out</a></div>';
-            profileHTML += '<img src="'+resp.image.url+'"/><div class="proDetails"><p>'+resp.displayName+'</p><p>'+resp.emails[0].value+'</p><p>'+resp.gender+'</p><p>'+resp.id+'</p><p><a href="'+resp.url+'">View Google+ Profile</a></p></div></div>';
-            $('.userContent').html(profileHTML);
-            $('#gSignIn').slideUp('slow');
-        });
-    });
+
+  <div id="my-signin2"></div>
+<a href="#" onclick="signOut();">Sign out</a>
+
+<script>
+function onSuccess(googleUser) 
+{
+  var profile = googleUser.getBasicProfile();
+  console.log('ID: ' + profile.getId()); 
+  console.log('Name: ' + profile.getName());
+  console.log('Image URL: ' + profile.getImageUrl());
+  console.log('Email: ' + profile.getEmail());
+window.location.href='myfiles.html';
 }
-function onFailure(error) {
-    alert(error);
-}
-function renderButton() {
-    gapi.signin2.render('gSignIn', {
+    function onFailure(error) {
+      console.log(error);
+    }
+    function renderButton() {
+      gapi.signin2.render('my-signin2', {
         'scope': 'profile email',
         'width': 240,
         'height': 50,
@@ -66,20 +67,21 @@ function renderButton() {
         'theme': 'dark',
         'onsuccess': onSuccess,
         'onfailure': onFailure
-    });
+      });
+
 }
-function signOut() {
+
+
+  function signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
-        $('.userContent').html('');
-        $('#gSignIn').slideDown('slow');
+      console.log('User signed out.');
     });
-}
+  }
 </script>
-	
-<!-- HTML for render Google Sign-In button -->
-<div id="gSignIn"></div>
-<!-- HTML for displaying user details -->
-<div class="userContent"></div>
-</head>
+
+
+
+  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+</body>
 </html>
