@@ -2,6 +2,31 @@
 <html lang="en">
 
 <head>
+
+
+
+<script> 
+	
+	function deleteImage(file_name)
+{
+    var r = confirm("Are you sure you want to delete " + file_name + " ?");
+	
+    if(r == true)
+    {
+		var formData = new FormData();
+			
+		formData.append("filename", file_name);
+		
+		var xhr = new XMLHttpRequest();
+		xhr.open('POST', 'delete.php', true);
+		xhr.onload = function () {
+		console.log(this.responseText);
+		document.getElementById(file_name).remove();
+	};
+	xhr.send(formData);
+    }
+}
+</script>
     
     <!-- Meta Declaration -->
     <meta charset="utf-8">
@@ -86,12 +111,12 @@
 			echo '<tbody>';
 			foreach($filesinfolder as $file){
 				if($file != '.' && $file != '..' && is_file($dir.$file)){
-			echo '<tr>';
+			echo '<tr id="'. $file .'">';
 			echo '<td>'.$file.'</td>';
 			echo '<td>' . 'date' . '</td>';
-			echo '<td>' . 'preview' . '</td>';
-			echo '<td>' . 'download' . '</td>';
-			echo '<td>' . 'remove' . '</td>';
+			echo '<td>' . '<a href='.'"'.$dir.'/'.$file.'"'.' target="_blank" class="btn btn-warning active" role="button" aria-pressed="true"> Preview </a>' . '</td>';
+			echo '<td>' . '<a href='.'"'.$dir.'/'.$file.'"'.' class="btn btn-success active" role="button" aria-pressed="true" download> Download </a>' . '</td>';
+			echo '<td>' . '<input class="btn btn-danger" id="button" type="button" value="clickme" onclick="deleteImage(\''.$file.'\');" />' . '</td>';
 			echo '</tr>';
 				}
 			}
@@ -102,6 +127,7 @@
     </div>
         
     <!-- JavaScripts Imports -->
+	
     
     <!-- jQuery Version 1.11.1 -->
     <script src="js/jquery.js"></script>
