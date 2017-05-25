@@ -33,7 +33,7 @@
             <!-- Links to Other Pages -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li> <a href="signout.html">Sign out</a></li>
+                    <li> <a id=check href="index.html">Login to Access Files</a></li>
                 </ul>
             </div>
         </div>
@@ -50,7 +50,8 @@ function onSuccess(googleUser)
   console.log('Name: ' + profile.getName());
   console.log('Image URL: ' + profile.getImageUrl());
   console.log('Email: ' + profile.getEmail());
-window.location.href='myfiles.html';
+  document.getElementById("check").href = "myfiles.html";
+  document.getElementById("check").innerHTML = "My Files";
 }
     function onFailure(error) {
       console.log(error);
@@ -70,11 +71,14 @@ window.location.href='myfiles.html';
 
 
   function signOut() {
+  document.getElementById("check").href = "index.html";
+  document.getElementById("check").innerHTML = "Login to Access Files";
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
       console.log('User signed out.');
     });
   }
+  
 </script>
 
 
