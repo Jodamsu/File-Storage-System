@@ -89,7 +89,7 @@
             <thead>
               <tr>
                 <th>File Name</th>
-                <th>Upload Date</th>
+                <th>Upload Date (UTC)</th>
 				<th>Preview</th>
                 <th>Download</th>
 				<th>Remove</th>
@@ -98,6 +98,7 @@
 			
 			
 			<?php
+			date_default_timezone_set("UTC");
 			$currentuser = 'user1';
 			$dir = 'uploads/';
 			if ($currentuser != null){
@@ -113,11 +114,12 @@
 				if($file != '.' && $file != '..' && is_file($dir.$file)){
 			echo '<tr id="'. $file .'">';
 			echo '<td>'.$file.'</td>';
-			echo '<td>' . 'date' . '</td>';
+			echo '<td>' . date("F d Y H:i:s",filemtime($dir.'/'.$file)) . '</td>';
 			echo '<td>' . '<a href='.'"'.$dir.'/'.$file.'"'.' target="_blank" class="btn btn-warning active" role="button" aria-pressed="true"> Preview </a>' . '</td>';
 			echo '<td>' . '<a href='.'"'.$dir.'/'.$file.'"'.' class="btn btn-success active" role="button" aria-pressed="true" download> Download </a>' . '</td>';
 			echo '<td>' . '<input class="btn btn-danger" id="button" type="button" value="clickme" onclick="deleteImage(\''.$file.'\');" />' . '</td>';
 			echo '</tr>';
+			clearstatcache();
 				}
 			}
 			echo '</tbody>';
