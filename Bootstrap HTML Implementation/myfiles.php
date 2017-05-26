@@ -89,7 +89,7 @@
             <thead>
               <tr>
                 <th>File Name</th>
-                <th>Upload Date (UTC)</th>
+                <th>Upload Date (AEST)</th>
 				<th>Preview</th>
                 <th>Download</th>
 				<th>Remove</th>
@@ -98,7 +98,7 @@
 			
 			
 			<?php
-			date_default_timezone_set("UTC");
+			date_default_timezone_set("Australia/Brisbane");
 			$currentuser = 'user1';
 			$dir = 'uploads/';
 			if ($currentuser != null){
