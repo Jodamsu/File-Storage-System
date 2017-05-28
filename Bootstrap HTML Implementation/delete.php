@@ -1,7 +1,7 @@
 <?php
 
 $fileName = $_POST['filename'];
-$currentuser = 'user1';
+$currentuser = $_GET["userId"];
 
 $fileToDelete = "uploads/". $currentuser . "/". $fileName;
 
@@ -15,7 +15,7 @@ if (file_exists($fileToDelete)) {
 		echo "The file was deleted successfully.";
 	} else { echo "There was an error trying to delete the file."; } 
 } else {
-	echo '/n file not Found!';
+	echo '\n file not Found!';
 }
 
 ?>

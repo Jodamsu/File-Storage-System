@@ -1,9 +1,15 @@
 <?php
 			date_default_timezone_set("Australia/Brisbane");
-			$currentuser = 'user1';
+			
+			$currentuser = $_GET["userId"];
 			$dir = 'uploads/';
 			if ($currentuser != null){
 				$dir .= $currentuser.'/';
+			} else {
+				die();
+			}
+			if (!is_dir($dir)) {
+				mkdir($dir);         
 			}
 			
 			$filesinfolder = array();

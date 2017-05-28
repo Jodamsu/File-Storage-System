@@ -120,7 +120,7 @@
                     displayUploads(data)
                 }
 
-                xhr.open("post", "upload.php");
+                xhr.open("post", "upload.php?userId="+localStorage.userId);
                 xhr.send(formData);
             }
             
