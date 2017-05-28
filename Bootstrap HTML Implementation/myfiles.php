@@ -24,8 +24,8 @@
 			$output.= '<tr id="'. $file .'">';
 			$output.= '<td>'.$file.'</td>';
 			$output.= '<td>' . date("F d Y H:i:s",filemtime($dir.'/'.$file)) . '</td>';
-			$output.= '<td>' . '<a href='.'"'.$dir.'/'.$file.'"'.' target="_blank" class="btn btn-warning active" role="button" aria-pressed="true"> Preview </a>' . '</td>';
-			$output.= '<td>' . '<a href='.'"'.$dir.'/'.$file.'"'.' class="btn btn-success active" role="button" aria-pressed="true" download> Download </a>' . '</td>';
+			$output.= '<td>' . '<a href='.'"'.$dir.''.$file.'"'.' target="_blank" class="btn btn-warning active" role="button" aria-pressed="true"> Preview </a>' . '</td>';
+			$output.= '<td>' . '<a href='.'"'.$dir.''.$file.'"'.' class="btn btn-success active" role="button" aria-pressed="true" download> Download </a>' . '</td>';
 			$output.= '<td>' . '<input class="btn btn-danger" id="button" type="button" value="Delete" onclick="deleteImage(\''.$file.'\');" />' . '</td>';
 			$output.= '</tr>';
 			clearstatcache();

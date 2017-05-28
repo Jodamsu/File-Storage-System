@@ -5,6 +5,7 @@
 <script>
 localStorage.username = "user1";
 localStorage.userId = "user1";
+localStorage.removeItem('userId');
 </script>
 
 <script> 
@@ -113,10 +114,10 @@ localStorage.userId = "user1";
 		}
 	
     if(typeof(Storage) !== "undefined") {
-		if (localStorage.username != null && localStorage.userId != null) {
+		if (localStorage.username == null){
+			localStorage.username = "";}
+		if (localStorage.userId != null) {
 		fillTable();
-		} else {
-		localStorage.username = "";
 		}
 		document.getElementById("myfiles").innerHTML = localStorage.username + "'s Files"
     } else {
