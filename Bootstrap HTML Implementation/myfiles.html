@@ -53,10 +53,6 @@
         </div>
     </nav>
     
-    <script>
-        
-        
-    </script>
     
     <!-- Page Content -->
     <div class="container">
@@ -73,15 +69,20 @@
                 <th>Options</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>Movie.mp4</td>
-                <td>4th Feburary, 2017</td>
-                <td>Download Button Here</td>
-              </tr>
-            </tbody>
+            <tbody id="tablebody"/>
           </table>
     </div>
+	
+	<script>
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onload = function(){
+			if (this.readyState == 4 && this.status == 200) {
+				document.getElementById("tablebody").innerHTML = xmlhttp.responseText;
+			}
+		};
+        xmlhttp.open("GET", "myfiles2.php" , true);
+        xmlhttp.send();
+	</script>
         
     <!-- JavaScripts Imports -->
     
