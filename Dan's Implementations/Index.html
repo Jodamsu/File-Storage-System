@@ -34,6 +34,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li> <a id=check href="index.html">Login to Access Files</a></li>
+                    <li> <a id=idcheck></a></li>
                 </ul>
             </div>
         </div>
@@ -45,14 +46,11 @@
 <script>
 function onSuccess(googleUser) 
 {
-  var profile = googleUser.getBasicProfile();
-  console.log('ID: ' + profile.getId()); 
-  console.log('Name: ' + profile.getName());
-  console.log('Image URL: ' + profile.getImageUrl());
-  console.log('Email: ' + profile.getEmail());
-  document.getElementById("check").href = "myfiles.html";
-  document.getElementById("check").innerHTML = "My Files";
+document.getElementById("check").href = "myfiles.html";
+document.getElementById("check").innerHTML = "My Files";
+newUser();
 }
+
     function onFailure(error) {
       console.log(error);
     }
@@ -69,6 +67,12 @@ function onSuccess(googleUser)
 
 }
 
+function newUser() {
+var temp_name = auth2.currentUser.get().getBasicProfile().getEmail();
+var checkid2 = document.getElementById("idcheck").value;
+tempname.push(checkid2);
+localStorage.setItem('username', JSON.stringify(temp_name));
+}
 
   function signOut() {
   document.getElementById("check").href = "index.html";
