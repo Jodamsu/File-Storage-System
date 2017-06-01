@@ -3,9 +3,9 @@
 <head>
 
 <script>
-localStorage.username = "user1";
-localStorage.userId = "user1";
-localStorage.removeItem('userId');
+//localStorage.username = "user1";
+//localStorage.userId = "user1";
+//localStorage.removeItem('userId');
 </script>
 
 <script> 
@@ -119,7 +119,7 @@ localStorage.removeItem('userId');
 		if (localStorage.userId != null) {
 		fillTable();
 		}
-		document.getElementById("myfiles").innerHTML = localStorage.username + "'s Files"
+		document.getElementById("myfiles").innerHTML = localStorage.userId + "'s Files"
     } else {
         document.getElementById("myfiles").innerHTML = "Sorry, your browser does not support web storage...";
     }
