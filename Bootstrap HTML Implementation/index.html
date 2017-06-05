@@ -1,4 +1,5 @@
 <html>
+
 <head>
   <meta name="google-signin-client_id" content="590338520933-oohdfsnh0d9o8e9i5m4i4s9v1thoclq5.apps.googleusercontent.com">
 <!-- Page Title -->
@@ -64,12 +65,25 @@ newUser();
         'onfailure': onFailure
       });
 }
+  
 function newUser() {
-var temp_name = auth2.currentUser.get().getBasicProfile().getEmail();
+var id_token = googleUser.getAuthResponse().id_token;
 var checkid2 = document.getElementById("idcheck").value;
-tempname.push(checkid2);
-localStorage.setItem('userId', JSON.stringify(temp_name));
+var xhr = new XMLHttpRequest();
+xhr.send('idtoken=' + id_token);
+var GoogleAuth = require('google-auth-library');
+var auth = new GoogleAuth;
+var client = new auth.OAuth2(590338520933-oohdfsnh0d9o8e9i5m4i4s9v1thoclq5.apps.googleusercontent.com);
+client.verifyIdToken(
+    id_token,
+    590338520933-oohdfsnh0d9o8e9i5m4i4s9v1thoclq5.apps.googleusercontent.com,
+    function(e, login) {
+      var payload = login.getPayload();
+      localStorage.userId = payload['sub'];
+    }); 
+//localStorage.setItem('userId', JSON.stringify(temp_name));
 }
+  
   function signOut() {
   document.getElementById("check").href = "index.html";
   document.getElementById("check").innerHTML = "Login to Access Files";
