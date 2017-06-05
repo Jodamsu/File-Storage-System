@@ -73,10 +73,10 @@ var xhr = new XMLHttpRequest();
 xhr.send('idtoken=' + id_token);
 var GoogleAuth = require('google-auth-library');
 var auth = new GoogleAuth;
-var client = new auth.OAuth2(590338520933-oohdfsnh0d9o8e9i5m4i4s9v1thoclq5.apps.googleusercontent.com);
+var client = new auth.OAuth2(590338520933-oohdfsnh0d9o8e9i5m4i4s9v1thoclq5);
 client.verifyIdToken(
     id_token,
-    590338520933-oohdfsnh0d9o8e9i5m4i4s9v1thoclq5.apps.googleusercontent.com,
+    590338520933-oohdfsnh0d9o8e9i5m4i4s9v1thoclq5,
     function(e, login) {
       var payload = login.getPayload();
       var userid = payload['sub'];
