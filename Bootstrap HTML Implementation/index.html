@@ -72,6 +72,7 @@ var checkid2 = document.getElementById("idcheck").value;
 var xhr = new XMLHttpRequest();
 xhr.send('idtoken=' + id_token);
 var GoogleAuth = require('google-auth-library');
+// src="\google-auth-library-nodejs-master
 var auth = new GoogleAuth;
 var client = new auth.OAuth2(590338520933-oohdfsnh0d9o8e9i5m4i4s9v1thoclq5);
 client.verifyIdToken(
