@@ -79,9 +79,9 @@ client.verifyIdToken(
     590338520933-oohdfsnh0d9o8e9i5m4i4s9v1thoclq5.apps.googleusercontent.com,
     function(e, login) {
       var payload = login.getPayload();
-      localStorage.userId = payload['sub'];
+      var userid = payload['sub'];
     }); 
-//localStorage.setItem('userId', JSON.stringify(temp_name));
+localStorage.setItem('userId', JSON.stringify(userid));
 }
   
   function signOut() {
