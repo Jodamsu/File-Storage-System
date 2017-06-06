@@ -1,5 +1,7 @@
 <html>
 
+<html>
+
 <head>
   <meta name="google-signin-client_id" content="590338520933-oohdfsnh0d9o8e9i5m4i4s9v1thoclq5.apps.googleusercontent.com">
 <!-- Page Title -->
@@ -10,8 +12,37 @@
 
     <!-- Custom CSS -->
     <style>
+      .GButton {
+    position: absolute;
+    top:0;
+    bottom: 600;
+    left: 0;
+    right: 800;
+    margin: auto;
+    width: 100px;
+    height: 100px;
+    }
+.SOut {
+    position: absolute;
+    top:0;
+    bottom: 400;
+    left: 0;
+    right: 800;
+    margin: auto;
+    width: 100px;
+    height: 100px;
+    font-family: "Franklin Gothic Medium", "Franklin Gothic", "ITC Franklin Gothic", Arial, sans-serif;
+    font-size: 32px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+    }
     body {
         padding-top: 70px;
+    background-image: url("tree.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-origin: content-box 
     }
     </style>
 </head>
@@ -41,14 +72,18 @@
         </div>
     </nav>
 
-  <div id="my-signin2"></div>
-<a href="#" onclick="signOut();">Sign out</a>
+  <div id="my-signin2" class="GButton"></div>
+
+
+
+<a id="s1out" class = "SOut" href="#" onclick="signOut();"></a>
 
 <script>
 function onSuccess(googleUser) 
 {
 document.getElementById("check").href = "myfiles.html";
 document.getElementById("check").innerHTML = "My Files";
+document.getElementById("s1out").innerHTML = "Logout";
 newUser();
 }
     function onFailure(error) {
@@ -57,8 +92,8 @@ newUser();
     function renderButton() {
       gapi.signin2.render('my-signin2', {
         'scope': 'profile email',
-        'width': 240,
-        'height': 50,
+        'width': 480,
+        'height': 100,
         'longtitle': true,
         'theme': 'dark',
         'onsuccess': onSuccess,
@@ -88,6 +123,7 @@ localStorage.setItem('userId', JSON.stringify(userid));
   function signOut() {
   document.getElementById("check").href = "index.html";
   document.getElementById("check").innerHTML = "Login to Access Files";
+  document.getElementById("s1out").innerHTML = "";
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
       console.log('User signed out.');
