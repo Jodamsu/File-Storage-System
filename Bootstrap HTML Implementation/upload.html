@@ -92,16 +92,11 @@
     
     <!-- Uplaod Block -->
     <div id="uploads"></div>
-<<<<<<< HEAD
-    <div class="dropzone" id="dropzone"> <p unselectable="on">Drop Files Here \ Click To Upload<p>
-        <input type="file" id="file" style="display:none" />
-    </div>  
-=======
     <div class="dropzone" id="dropzone">
 	<p class="dropzoneText" id="dropzoneText">Drop Files Here To Upload</p>
 	<input type="file" id="uploadInput" style="display:none" multiple /> 
 	</div>
->>>>>>> 2055b343c7ea7f0802904b7fdde38464c85c820e
+
     
     <!-- Scripts -->
     <script>
@@ -174,27 +169,7 @@
             }
             
             dropzone.onmouseover = function() {
-<<<<<<< HEAD
-                this.className = "dropzone dragover";
-                return false;
-            }
-            
-            dropzone.onmouseout = function() {
-                this.className = "dropzone";
-                return false;
-            }
-            
-            dropzone.onclick = function(e) {
-                this.className = "dropzone click"; 
-                var file = e.target.files;
-                
-                //I've tried everything, help!
-                
-                return upload(file);   
-            }
-            
-=======
-                this.className = "dropzone hover"
+                this.className = "dropzone dragover"
 				return false; 
             }
 			dropzone.onmouseout = function() {
@@ -203,14 +178,13 @@
             }
             
             dropzone.onclick = function() {
-			document.getElementById("uploadInput").click();
+                this.className = "dropzone click";
+                document.getElementById("uploadInput").click();
             }
 
 			document.getElementById("uploadInput").onchange = function() {
-			upload(document.getElementById("uploadInput").files);
+			     upload(document.getElementById("uploadInput").files);
 			}
-			
->>>>>>> 2055b343c7ea7f0802904b7fdde38464c85c820e
         }());
         
     </script>
