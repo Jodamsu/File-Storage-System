@@ -97,10 +97,12 @@
 <script>
 function onSuccess(googleUser) 
 {
+//Headings appear when GoogleUser signs in
 document.getElementById("check").href = "myfiles.html";
 document.getElementById("check").innerHTML = "My Files";
 document.getElementById("s1out").innerHTML = "Logout";
 document.getElementById("m1files").innerHTML = "MyFiles";
+//call to create user for backend purposes
 newUser();
 }
     function onFailure(error) {
@@ -117,14 +119,16 @@ newUser();
         'onfailure': onFailure
       });
 }
-  
+  //newUser function is not pushing a correct value to localstorage.userId, unable to determine cause
 function newUser() {
+//get id_token from GoogleUser
 var id_token = googleUser.getAuthResponse().id_token;
 var checkid2 = document.getElementById("idcheck").value;
 var xhr = new XMLHttpRequest();
 xhr.send('idtoken=' + id_token);
 var GoogleAuth = require('google-auth-library');
 // src="\google-auth-library-nodejs-master
+//unable to link node js directory
 var auth = new GoogleAuth;
 var client = new auth.OAuth2(590338520933-oohdfsnh0d9o8e9i5m4i4s9v1thoclq5);
 client.verifyIdToken(
@@ -133,11 +137,14 @@ client.verifyIdToken(
     function(e, login) {
       var payload = login.getPayload();
       var userid = payload['sub'];
+      //user id holds paylod (email address as defined in scope)
     }); 
+  // push email address(userid) to 'userId' in localstorage
 localStorage.setItem('userId', JSON.stringify(userid));
 }
   
   function signOut() {
+  //HTML fixes and Google Logout auth
   document.getElementById("check").href = "index.html";
   document.getElementById("check").innerHTML = "Login to Access Files";
   document.getElementById("s1out").innerHTML = "";
@@ -149,7 +156,6 @@ localStorage.setItem('userId', JSON.stringify(userid));
   }
   
 </script>
-
 
 
   <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
