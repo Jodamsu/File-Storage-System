@@ -37,18 +37,32 @@
                     <li> <a id=idcheck></a></li>
                 </ul>
             </div>
+			<div id="my-signin2"/>
+			<a href="#" onclick="signOut();">Sign out</a>
+			
         </div>
     </nav>
 
-  <div id="my-signin2"></div>
-<a href="#" onclick="signOut();">Sign out</a>
+  
 
 <script>
+
+//check if alredy signed into google, if true redirect to myfiles
+window.onload = signInCheck;
+
+function signInCheck(){
+gauth = gapi.auth2.getAuthInstance();
+if (gauth.isSignedIn.get()) {
+	setLocalStorage();
+	window.location.replace("index.html");
+	}
+}
+
+
 function onSuccess(googleUser) 
 {
-document.getElementById("check").href = "myfiles.html";
-document.getElementById("check").innerHTML = "My Files";
 newUser();
+window.location().replace("myfiles.html")
 }
 
     function onFailure(error) {
@@ -71,7 +85,7 @@ function newUser() {
 var temp_name = auth2.currentUser.get().getBasicProfile().getEmail();
 var checkid2 = document.getElementById("idcheck").value;
 tempname.push(checkid2);
-localStorage.setItem('username', JSON.stringify(temp_name));
+setLocalStorage();
 }
 
   function signOut() {
@@ -81,6 +95,13 @@ localStorage.setItem('username', JSON.stringify(temp_name));
     auth2.signOut().then(function () {
       console.log('User signed out.');
     });
+  }
+  
+  function setLocalStorage() {
+	var user_id= auth2.currentUser.getId();
+	localStorage.setItem('userId', JSON.stringify(user_id));
+	var user_name= auth2.currentUser.get().getBasicProfile().name;
+	localStorage.setItem('userId', JSON.stringify(user_name));
   }
   
 </script>
