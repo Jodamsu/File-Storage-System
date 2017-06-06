@@ -41,14 +41,17 @@
             </div>
         </div>
     </nav>
-<a href="#" onclick="signOut();">Sign out</a>
-<a href="index.html">Sign in again</a>
 <script>
+
+window.onload = signOut;
+
 function signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
       console.log('User signed out.');
     });
+
+	window.location.replace("index.html");
   }
 </script>
 </body>
