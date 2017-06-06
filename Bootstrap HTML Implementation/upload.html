@@ -20,12 +20,18 @@
     <style>
     body {
         padding-top: 70px;
+        -webkit-user-select: none; /* Chrome/Safari */        
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* IE10+ */
+        
+        -o-user-select: none;
+        user-select: none;
     }
     
     /* Drag and Drop Style */
     .dropzone {
     margin: auto;
-    height: 300px;
+    height: 70%;
     width: 40%;
     
     border: 2px dashed #ccc;
@@ -39,10 +45,10 @@
         border-color: #000;
         color: #000;
     }
-        
-    .dropzone.hover {
-        border-color: #e6e6e6;
-        color: #e6e6e6;
+    
+    .dropzone.click {
+        border-color: #009F10;
+        color: #009F10;
     }
     </style>
 
@@ -83,7 +89,9 @@
     
     <!-- Uplaod Block -->
     <div id="uploads"></div>
-    <div class="dropzone" id="dropzone">Drop Files Here To Upload</div>
+    <div class="dropzone" id="dropzone"> <p unselectable="on">Drop Files Here \ Click To Upload<p>
+        <input type="file" id="file" style="display:none" />
+    </div>  
     
     <!-- Scripts -->
     <script>
@@ -117,7 +125,7 @@
 
                 xhr.onload = function() {
                     var data = JSON.parse(this.responseText);
-                    displayUploads(data)
+                    //displayUploads(data)
                 }
 
                 xhr.open("post", "upload.php?userId="+localStorage.userId);
@@ -129,30 +137,38 @@
                 e.preventDefault();
                 this.className = "dropzone";
                 upload(e.dataTransfer.files);
-            }
+            } 
             
             //As User Hovers Over
             dropzone.ondragover = function() {
                 this.className = "dropzone dragover";
                 return false;
             }
-            
 
             dropzone.ondragleave = function() {
-            this.className = "dropzone";       
-            return false;   
+                this.className = "dropzone";       
+                return false;   
             }
             
-            dropzone.hover = function() {
-                this.className = "dropzone hover"
+            dropzone.onmouseover = function() {
+                this.className = "dropzone dragover";
                 return false;
             }
             
-            dropzone.onclick = function() {
-                e.preventDefault();
+            dropzone.onmouseout = function() {
                 this.className = "dropzone";
-                upload(e.dataTransfer.files);
+                return false;
             }
+            
+            dropzone.onclick = function(e) {
+                this.className = "dropzone click"; 
+                var file = e.target.files;
+                
+                //I've tried everything, help!
+                
+                return upload(file);   
+            }
+            
         }());
         
     </script>
