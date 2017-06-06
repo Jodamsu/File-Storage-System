@@ -31,7 +31,7 @@
     /* Drag and Drop Style */
     .dropzone {
     margin: auto;
-    height: 70%;
+    height: 300px;
     width: 40%;
     
     border: 2px dashed #ccc;
@@ -93,7 +93,7 @@
     <!-- Uplaod Block -->
     <div id="uploads"></div>
     <div class="dropzone" id="dropzone">
-	<p class="dropzoneText" id="dropzoneText">Drop Files Here To Upload</p>
+	<p class="dropzoneText" id="dropzoneText">Drop Files / Click To Upload</p>
 	<input type="file" id="uploadInput" style="display:none" multiple /> 
 	</div>
 
@@ -143,7 +143,7 @@
 
                 xhr.onload = function() {
                     var data = JSON.parse(this.responseText);
-                    //displayUploads(data)
+                    displayUploads(data)
                 }
 
                 xhr.open("post", "upload.php?userId="+localStorage.userId);
@@ -152,8 +152,8 @@
             
             //As User Releases Files
             dropzone.ondrop = function(e) {
-                e.preventDefault();
                 this.className = "dropzone";
+                e.preventDefault();
                 upload(e.dataTransfer.files);
             } 
             

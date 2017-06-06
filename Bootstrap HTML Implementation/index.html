@@ -116,7 +116,8 @@ newUser();
         'onfailure': onFailure
       });
 }
-  //newUser function is not pushing a correct value to localstorage.userId, unable to determine cause
+//newUser function is not pushing a correct value to localstorage.userId, unable to determine cause
+    
 function newUser() {
 //get id_token from GoogleUser
 var id_token = googleUser.getAuthResponse().id_token;
@@ -154,8 +155,6 @@ localStorage.setItem('userId', JSON.stringify(userid));
   
 </script>
 
-
-
-  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 </body>
 </html>
