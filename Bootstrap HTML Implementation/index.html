@@ -1,5 +1,7 @@
 <html>
 
+<html>
+
 <head>
   <meta name="google-signin-client_id" content="590338520933-oohdfsnh0d9o8e9i5m4i4s9v1thoclq5.apps.googleusercontent.com">
 <!-- Page Title -->
@@ -10,8 +12,52 @@
 
     <!-- Custom CSS -->
     <style>
+      .GButton {
+    position: absolute;
+    top:0;
+    bottom: 600;
+    left: 0;
+    right: 800;
+    margin: auto;
+    width: 100px;
+    height: 100px;
+    }
+.SOut {
+    position: absolute;
+    top:0;
+    bottom: 400;
+    left: 0;
+    right: 800;
+    margin: auto;
+    width: 100px;
+    height: 100px;
+    font-family: "Franklin Gothic Medium", "Franklin Gothic", "ITC Franklin Gothic", Arial, sans-serif;
+    font-size: 32px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+    }
+      .MFiles {
+    position: absolute;
+    top:0;
+    bottom: 300;
+    left: 0;
+    right: 800;
+    margin: auto;
+    width: 100px;
+    height: 100px;
+    font-family: "Franklin Gothic Medium", "Franklin Gothic", "ITC Franklin Gothic", Arial, sans-serif;
+    font-size: 32px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+    }
     body {
         padding-top: 70px;
+    background-image: url("tree.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-origin: content-box 
     }
     </style>
 </head>
@@ -41,14 +87,22 @@
         </div>
     </nav>
 
-  <div id="my-signin2"></div>
-<a href="#" onclick="signOut();">Sign out</a>
+  <div id="my-signin2" class="GButton"></div>
+
+
+
+<a id="s1out" class = "SOut" href="#" onclick="signOut();"></a>
+<a id="m1files" class = "MFiles" href="myfiles.html"></a>
 
 <script>
 function onSuccess(googleUser) 
 {
+//Headings appear when GoogleUser signs in
 document.getElementById("check").href = "myfiles.html";
 document.getElementById("check").innerHTML = "My Files";
+document.getElementById("s1out").innerHTML = "Logout";
+document.getElementById("m1files").innerHTML = "MyFiles";
+//call to create user for backend purposes
 newUser();
 }
     function onFailure(error) {
@@ -57,36 +111,44 @@ newUser();
     function renderButton() {
       gapi.signin2.render('my-signin2', {
         'scope': 'profile email',
-        'width': 240,
-        'height': 50,
+        'width': 480,
+        'height': 100,
         'longtitle': true,
         'theme': 'dark',
         'onsuccess': onSuccess,
         'onfailure': onFailure
       });
 }
-  
+  //newUser function is not pushing a correct value to localstorage.userId, unable to determine cause
 function newUser() {
+//get id_token from GoogleUser
 var id_token = googleUser.getAuthResponse().id_token;
 var checkid2 = document.getElementById("idcheck").value;
 var xhr = new XMLHttpRequest();
 xhr.send('idtoken=' + id_token);
 var GoogleAuth = require('google-auth-library');
+// src="\google-auth-library-nodejs-master
+//unable to link node js directory
 var auth = new GoogleAuth;
-var client = new auth.OAuth2(590338520933-oohdfsnh0d9o8e9i5m4i4s9v1thoclq5.apps.googleusercontent.com);
+var client = new auth.OAuth2(590338520933-oohdfsnh0d9o8e9i5m4i4s9v1thoclq5);
 client.verifyIdToken(
     id_token,
-    590338520933-oohdfsnh0d9o8e9i5m4i4s9v1thoclq5.apps.googleusercontent.com,
+    590338520933-oohdfsnh0d9o8e9i5m4i4s9v1thoclq5,
     function(e, login) {
       var payload = login.getPayload();
-      localStorage.userId = payload['sub'];
+      var userid = payload['sub'];
+      //user id holds paylod (email address as defined in scope)
     }); 
-//localStorage.setItem('userId', JSON.stringify(temp_name));
+  // push email address(userid) to 'userId' in localstorage
+localStorage.setItem('userId', JSON.stringify(userid));
 }
   
   function signOut() {
+  //HTML fixes and Google Logout auth
   document.getElementById("check").href = "index.html";
   document.getElementById("check").innerHTML = "Login to Access Files";
+  document.getElementById("s1out").innerHTML = "";
+  document.getElementById("m1files").innerHTML = "";
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
       console.log('User signed out.');
@@ -94,7 +156,6 @@ client.verifyIdToken(
   }
   
 </script>
-
 
 
   <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>

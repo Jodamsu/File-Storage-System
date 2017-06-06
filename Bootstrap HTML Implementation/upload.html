@@ -36,10 +36,12 @@
     
     border: 2px dashed #ccc;
     color: #ccc;
-    line-height: 300px;
     text-align: center;
-    
     }
+	
+	.dropzoneText {
+	line-height:300px;
+	}
 
     .dropzone.dragover {
         border-color: #000;
@@ -77,6 +79,7 @@
                     <li><a href="myfiles.html">My Files</a></li>
                     <li class="active"> <a href="upload.html">Upload</a> </li>
                     <li> <a href="about.html">About Us</a> </li>
+                    <li> <a href="index.html">Sign Out</a> </li>
                 </ul>
             </div>
         </div>
@@ -89,9 +92,16 @@
     
     <!-- Uplaod Block -->
     <div id="uploads"></div>
+<<<<<<< HEAD
     <div class="dropzone" id="dropzone"> <p unselectable="on">Drop Files Here \ Click To Upload<p>
         <input type="file" id="file" style="display:none" />
     </div>  
+=======
+    <div class="dropzone" id="dropzone">
+	<p class="dropzoneText" id="dropzoneText">Drop Files Here To Upload</p>
+	<input type="file" id="uploadInput" style="display:none" multiple /> 
+	</div>
+>>>>>>> 2055b343c7ea7f0802904b7fdde38464c85c820e
     
     <!-- Scripts -->
     <script>
@@ -100,17 +110,30 @@
             var dropzone = document.getElementById("dropzone");
             
             var displayUploads = function(data) {
-                var uploads = document.getElementById("uploads"),
-                    anchor,
-                    x;
-                
-                for (x = 0; x < data.length; x = x + 1) {
-                    anchor = document.createElement("a");
-                    anchor.href = data[x].file;
-                    anchor.innerText = data[x].name;
-                    
-                    uploads.appendChild(anchor);
-                }
+				var x = document.getElementById("uploadInput");
+				var txt = "";
+				if ('files' in x) {
+				    if (x.files.length == 0) {
+				        txt = "Select one or more files.";
+				    } else {
+ 				        for (var i = 0; i < x.files.length; i++) {
+ 				            txt += "<br><strong>" + (i+1) + ". file</strong><br>";
+							var file = x.files[i];
+							if ('name' in file) {
+								txt += "name: " + file.name + "<br>";
+							}
+							if ('size' in file) {
+								txt += "size: " + file.size + " bytes <br>";
+							}
+						}
+					}
+				}
+				
+				document.getElementById ("dropzoneText").innerHTML = txt;
+				
+				var myElement = document.querySelector("#dropzoneText");
+				myElement.style.lineHeight = "initial";
+				myElement.style.color = "initial";
             }
             
             //Upload.php parse
@@ -151,6 +174,7 @@
             }
             
             dropzone.onmouseover = function() {
+<<<<<<< HEAD
                 this.className = "dropzone dragover";
                 return false;
             }
@@ -169,6 +193,24 @@
                 return upload(file);   
             }
             
+=======
+                this.className = "dropzone hover"
+				return false; 
+            }
+			dropzone.onmouseout = function() {
+                this.className = "dropzone"
+				return false; 
+            }
+            
+            dropzone.onclick = function() {
+			document.getElementById("uploadInput").click();
+            }
+
+			document.getElementById("uploadInput").onchange = function() {
+			upload(document.getElementById("uploadInput").files);
+			}
+			
+>>>>>>> 2055b343c7ea7f0802904b7fdde38464c85c820e
         }());
         
     </script>
