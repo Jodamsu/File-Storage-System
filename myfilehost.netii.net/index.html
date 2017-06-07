@@ -168,9 +168,9 @@ localStorage.setItem('userId', JSON.stringify(userid));
 
   function setLocalStorage() {
 	var user_id= gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getId();
-	localStorage.setItem('userId', JSON.stringify(user_id));
+	localStorage.setItem('userId', JSON.stringify(user_id).replace('"','').replace('"',''));
 	var user_name= gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getName();
-	localStorage.setItem('username', JSON.stringify(user_name));
+	localStorage.setItem('username', JSON.stringify(user_name).replace('"','').replace('"',''));
   }
   
 </script>

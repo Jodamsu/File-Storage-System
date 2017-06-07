@@ -120,7 +120,7 @@
 		if (localStorage.userId != null) {
 		fillTable();
 		}
-		document.getElementById("myfiles").innerHTML = localStorage.username.replace('"','').replace('"','') + "'s Files"
+		document.getElementById("myfiles").innerHTML = localStorage.username + "'s Files"
     } else {
         document.getElementById("myfiles").innerHTML = "Sorry, your browser does not support web storage...";
     }
