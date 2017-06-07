@@ -1,0 +1,113 @@
+<html>
+<head>
+  <meta name="google-signin-client_id" content="590338520933-oohdfsnh0d9o8e9i5m4i4s9v1thoclq5.apps.googleusercontent.com">
+<!-- Page Title -->
+    <title> Login with Google </title>
+
+    <!-- StyleSheet Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <style>
+    body {
+        padding-top: 70px;
+    }
+    </style>
+</head>
+<body>
+ <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            
+            <!-- Navigation Bar -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">My File Upload</a>
+            </div>
+            
+            <!-- Links to Other Pages -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li> <a id=check href="index.html">Login to Access Files</a></li>
+                    <li> <a id=idcheck></a></li>
+                </ul>
+            </div>
+			<div id="my-signin2"/>
+			<a href="#" onclick="signOut();">Sign out</a>
+			
+        </div>
+    </nav>
+
+  
+
+<script>
+
+//check if alredy signed into google, if true redirect to myfiles
+window.onload = signInCheck;
+
+function signInCheck(){
+gauth = gapi.auth2.getAuthInstance();
+if (gauth.isSignedIn.get()) {
+	setLocalStorage();
+	window.location.replace("index.html");
+	}
+}
+
+
+function onSuccess(googleUser) 
+{
+newUser();
+window.location().replace("myfiles.html")
+}
+
+    function onFailure(error) {
+      console.log(error);
+    }
+    function renderButton() {
+      gapi.signin2.render('my-signin2', {
+        'scope': 'profile email',
+        'width': 30%,
+        'height': 40%,
+        'longtitle': true,
+        'theme': 'dark',
+        'onsuccess': onSuccess,
+        'onfailure': onFailure
+      });
+
+}
+
+function newUser() {
+var temp_name = auth2.currentUser.get().getBasicProfile().getEmail();
+var checkid2 = document.getElementById("idcheck").value;
+tempname.push(checkid2);
+setLocalStorage();
+}
+
+  function signOut() {
+  document.getElementById("check").href = "index.html";
+  document.getElementById("check").innerHTML = "Login to Access Files";
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+  }
+  
+  function setLocalStorage() {
+	var user_id= auth2.currentUser.getId();
+	localStorage.setItem('userId', JSON.stringify(user_id));
+	var user_name= auth2.currentUser.get().getBasicProfile().name;
+	localStorage.setItem('userId', JSON.stringify(user_name));
+  }
+  
+</script>
+
+
+
+  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+</body>
+</html>
