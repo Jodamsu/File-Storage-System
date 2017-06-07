@@ -93,14 +93,23 @@
 <a id="m1files" class = "MFiles" href="myfiles.html"></a>
 
 <script>
-function onSuccess(googleUser) 
+window.onLoadCallback = function(){
+gapi.load('auth2', function() {
+  gapi.auth2.init({
+  client_id: "590338520933-oohdfsnh0d9o8e9i5m4i4s9v1thoclq5.apps.googleusercontent.com",
+  'scope': 'https://www.googleapis.com/auth/plus.login'
+})
+  });
+}
+
+function onSuccess() 
 {
 //Headings appear when GoogleUser signs in
 document.getElementById("check").href = "myfiles.html";
 document.getElementById("check").innerHTML = "My Files";
 document.getElementById("s1out").innerHTML = "Logout";
 //call to create user for backend purposes
-newUser();
+//newUser();
 setLocalStorage();
 
 
@@ -123,7 +132,8 @@ setLocalStorage();
     
 function newUser() {
 //get id_token from GoogleUser
-var id_token = googleUser.getAuthResponse().id_token;
+var googleUser = gapi.auth2.getAuthInstance();
+var id_token = googleUser.getAuthInstance().id_token;
 var checkid2 = document.getElementById("idcheck").value;
 var xhr = new XMLHttpRequest();
 xhr.send('idtoken=' + id_token);
@@ -157,9 +167,9 @@ localStorage.setItem('userId', JSON.stringify(userid));
   }
 
   function setLocalStorage() {
-	var user_id= auth2.currentUser.getId();
+	var user_id= gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getId();
 	localStorage.setItem('userId', JSON.stringify(user_id));
-	var user_name= auth2.currentUser.get().getBasicProfile().name;
+	var user_name= gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getName();
 	localStorage.setItem('username', JSON.stringify(user_name));
   }
   
