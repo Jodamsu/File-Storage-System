@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    
-    <!-- Meta Declaration -->
-     <meta name="google-signin-client_id" content="590338520933-oohdfsnh0d9o8e9i5m4i4s9v1thoclq5.apps.googleusercontent.com">
-    
-
+  <meta name="google-signin-client_id" content="590338520933-oohdfsnh0d9o8e9i5m4i4s9v1thoclq5.apps.googleusercontent.com">
     <!-- Page Title -->
     <title> My Files </title>
 
@@ -18,13 +12,10 @@
     body {
         padding-top: 70px;
     }
-    </style>
-
+    </style>  
 </head>
-
 <body>
-
-    <!-- Navigation -->
+ <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
             
@@ -45,48 +36,25 @@
                     <li class="active"><a href="myfiles.html">My Files</a></li>
                     <li> <a href="upload.html">Upload</a> </li>
                     <li> <a href="about.html">About Us</a> </li>
-                    <li> <a href="signout.html">Sign out</a></li>
-                    <li> <a> ("Hello"  + profile.getName()); </a>
+                    <li> <a href="index.html">Sign out</a></li>
                 </ul>
             </div>
         </div>
     </nav>
-    
-    <!-- Page Content -->
-    <div class="container">
+<script>
 
-    <!-- Table -->
-    <div class="container">
+window.onload = signOut;
 
-      <h2>My Files</h2>          
-          <table class="table">
-            <thead>
-              <tr>
-                <th>File Name</th>
-                <th>Upload Date</th>
-                <th>Options</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Movie.mp4</td>
-                <td>4th Feburary, 2017</td>
-                <td>Download Button Here</td>
-              </tr>
-            </tbody>
-          </table>
-    </div>
-        
-    <!-- JavaScripts Imports -->
-    
-    <!-- jQuery Version 1.11.1 -->
-    <script src="js/jquery.js"></script>
+function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+	window.location.replace("index.html");
+  }
+</script>
 
-<script src="https://apis.google.com/js/platform.js" async defer></script
-    
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 </body>
-
 </html>
