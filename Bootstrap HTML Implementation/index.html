@@ -78,6 +78,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li> <a id=check href="index.html">Login to Access Files</a></li>
+					<li> <a href="#" id ="s1out" onclick="signOut();"></a> </li>
                     <li> <a id=idcheck></a></li>
                 </ul>
             </div>
@@ -98,9 +99,11 @@ function onSuccess(googleUser)
 document.getElementById("check").href = "myfiles.html";
 document.getElementById("check").innerHTML = "My Files";
 document.getElementById("s1out").innerHTML = "Logout";
-document.getElementById("m1files").innerHTML = "MyFiles";
 //call to create user for backend purposes
 newUser();
+setLocalStorage();
+
+
 }
     function onFailure(error) {
       console.log(error);
@@ -151,6 +154,13 @@ localStorage.setItem('userId', JSON.stringify(userid));
     auth2.signOut().then(function () {
       console.log('User signed out.');
     });
+  }
+
+  function setLocalStorage() {
+	var user_id= auth2.currentUser.getId();
+	localStorage.setItem('userId', JSON.stringify(user_id));
+	var user_name= auth2.currentUser.get().getBasicProfile().name;
+	localStorage.setItem('username', JSON.stringify(user_name));
   }
   
 </script>
